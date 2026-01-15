@@ -18,8 +18,8 @@ By [21st.dev](https://21st.dev)
 Download the latest release for your platform from the [Releases](https://github.com/21st-dev/1code/releases) page.
 
 - **macOS**: `.dmg` (Intel & Apple Silicon)
-- **Windows**: `.exe` installer or portable
-- **Linux**: `.AppImage` or `.deb`
+- **Windows**: not supported yet
+- **Linux**: not supported yet
 
 ## Development
 
