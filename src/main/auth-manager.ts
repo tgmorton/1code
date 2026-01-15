@@ -4,7 +4,7 @@ import { app, BrowserWindow } from "electron"
 // API URLs
 const API_URLS = {
   production: "https://21st.dev",
-  development: "http://localhost:3000",
+  development: "https://21st.dev",
 } as const
 
 export class AuthManager {
