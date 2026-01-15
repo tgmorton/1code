@@ -3,15 +3,11 @@ import { Provider as JotaiProvider, useAtomValue } from "jotai"
 import { ThemeProvider } from "next-themes"
 import { TRPCProvider } from "./contexts/TRPCProvider"
 import { AgentsLayout } from "./features/layout/agents-layout"
-import {
-  AnthropicOnboardingPage,
-  SelectRepoPage,
-} from "./features/onboarding"
+import { SelectRepoPage } from "./features/onboarding"
 import { TooltipProvider } from "./components/ui/tooltip"
 import { appStore } from "./lib/jotai-store"
 import { initAnalytics, identify, shutdown } from "./lib/analytics"
 import { VSCodeThemeProvider } from "./lib/themes/theme-provider"
-import { anthropicOnboardingCompletedAtom } from "./lib/atoms"
 import { selectedProjectAtom } from "./features/agents/atoms"
 import { trpc } from "./lib/trpc"
 
@@ -19,9 +15,6 @@ import { trpc } from "./lib/trpc"
  * Main content router - decides which page to show based on onboarding state
  */
 function AppContent() {
-  const anthropicOnboardingCompleted = useAtomValue(
-    anthropicOnboardingCompletedAtom
-  )
   const selectedProject = useAtomValue(selectedProjectAtom)
 
   // Fetch projects to validate selectedProject exists
@@ -40,12 +33,9 @@ function AppContent() {
   }, [selectedProject, projects, isLoadingProjects])
 
   // Determine which page to show:
-  // 1. Anthropic onboarding not completed -> AnthropicOnboardingPage
-  // 2. No valid project selected -> SelectRepoPage
-  // 3. Otherwise -> AgentsLayout
-  if (!anthropicOnboardingCompleted) {
-    return <AnthropicOnboardingPage />
-  }
+  // 1. No valid project selected -> SelectRepoPage
+  // 2. Otherwise -> AgentsLayout
+  // Note: Onboarding skipped - user authenticated via `claude setup-token`
 
   if (!validatedProject && !isLoadingProjects) {
     return <SelectRepoPage />

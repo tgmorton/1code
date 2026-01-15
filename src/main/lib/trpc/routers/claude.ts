@@ -283,26 +283,19 @@ export const claudeRouter = router({
               logClaudeEnv(claudeEnv, `[${input.subChatId}] `)
             }
 
-            // Get Claude Code OAuth token from local storage (optional)
-            const claudeCodeToken = getClaudeCodeToken()
+            // Get Claude Code OAuth token - check env var first, then local storage
+            const envToken = process.env.CLAUDE_CODE_OAUTH_TOKEN
+            const dbToken = getClaudeCodeToken()
+            const claudeCodeToken = envToken || dbToken
 
-            // Create isolated config directory per subChat to prevent session contamination
-            // The Claude binary stores sessions in ~/.claude/ based on cwd, which causes
-            // cross-chat contamination when multiple chats use the same project folder
-            const isolatedConfigDir = path.join(
-              app.getPath("userData"),
-              "claude-sessions",
-              input.subChatId
-            )
-
-            // Build final env - only add OAuth token if we have one
+            // Build final env - pass token if we have one from env or db
+            // Don't override CLAUDE_CONFIG_DIR so Claude CLI can use its default ~/.claude/
+            // where tokens from `claude setup-token` are stored
             const finalEnv = {
               ...claudeEnv,
               ...(claudeCodeToken && {
                 CLAUDE_CODE_OAUTH_TOKEN: claudeCodeToken,
               }),
-              // Isolate Claude's config/session storage per subChat
-              CLAUDE_CONFIG_DIR: isolatedConfigDir,
             }
 
             // Get bundled Claude binary path

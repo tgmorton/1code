@@ -1,9 +1,9 @@
 {
-  "name": "21st-desktop",
+  "name": "1code-desktop",
   "version": "0.0.12",
   "private": true,
   "description": "1Code - UI for parallel work with AI agents",
-  "author": "21st.dev",
+  "author": "Personal Build",
   "main": "out/main/index.js",
   "scripts": {
     "dev": "electron-vite dev",
@@ -119,14 +119,14 @@
     "vite": "^6.3.4"
   },
   "build": {
-    "appId": "dev.21st.agents",
+    "appId": "app.1code.personal",
     "productName": "1Code",
     "npmRebuild": true,
     "protocols": [
       {
         "name": "1Code",
         "schemes": [
-          "twentyfirst-agents"
+          "1code"
         ]
       }
     ],
