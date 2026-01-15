@@ -50,7 +50,7 @@ bun run dev
 
 ## Feedback & Community
 
-Join our [Discord](https://discord.gg/Qx4rFunqvY) for support and discussions.
+Join our [Discord](https://discord.com/invite/8ektTZGnj4) for support and discussions.
 
 ## License
 
